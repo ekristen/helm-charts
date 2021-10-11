@@ -1,0 +1,65 @@
+## RKE PushProx Monitoring
+## ref: https://github.com/rancher/charts/tree/master/packages/rancher-pushprox
+##
+rkeControllerManager:
+  enabled: true
+  metricsPort: 10252
+  component: kube-controller-manager
+  clients:
+    port: 10011
+    useLocalhost: true
+    nodeSelector:
+      node-role.kubernetes.io/controlplane: "true"
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+
+rkeScheduler:
+  enabled: true
+  metricsPort: 10251
+  component: kube-scheduler
+  clients:
+    port: 10012
+    useLocalhost: true
+    nodeSelector:
+      node-role.kubernetes.io/controlplane: "true"
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+
+rkeProxy:
+  enabled: true
+  metricsPort: 10249
+  component: kube-proxy
+  clients:
+    port: 10013
+    useLocalhost: true
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+
+rkeEtcd:
+  enabled: true
+  metricsPort: 2379
+  component: kube-etcd
+  clients:
+    port: 10014
+    https:
+      enabled: true
+      certDir: /etc/kubernetes/ssl
+      certFile: kube-etcd-*.pem
+      keyFile: kube-etcd-*-key.pem
+      caCertFile: kube-ca.pem
+    nodeSelector:
+      node-role.kubernetes.io/etcd: "true"
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"

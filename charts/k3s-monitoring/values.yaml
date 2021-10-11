@@ -1,0 +1,15 @@
+## k3s PushProx Monitoring
+## ref: https://github.com/rancher/charts/tree/master/packages/rancher-pushprox
+##
+k3sServer:
+  enabled: true
+  metricsPort: 10249
+  component: k3s-server
+  clients:
+    port: 10013
+    useLocalhost: true
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"

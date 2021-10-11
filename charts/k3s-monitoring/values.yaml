@@ -57,8 +57,9 @@ ks3Proxy:
       - effect: "NoSchedule"
         operator: "Exists"
 
+# Disabled by default because k3s defaults to sqlite instead of etcd
 k3sEtcd:
-  enabled: true
+  enabled: false
   metricsPort: 2381
   component: kube-etcd
   clients:

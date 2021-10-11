@@ -9,19 +9,16 @@ dependencies:
     version: 1.0.0
     repository: https://ekristen.github.io/helm-charts
     condition: rke2ControllerManager.enabled
-
   - name: rancher-pushprox
     alias: rke2Scheduler
     version: 1.0.0
     repository: https://ekristen.github.io/helm-charts
     condition: rke2Scheduler.enabled
-
   - name: rancher-pushprox
     alias: rke2Proxy
     version: 1.0.0
     repository: https://ekristen.github.io/helm-charts
     condition: rke2Proxy.enabled
-
   - name: rancher-pushprox
     alias: rke2Etcd
     version: 1.0.0

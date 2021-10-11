@@ -1,16 +1,25 @@
-# Helm Charts
+# ekristen Curated Helm Chart Repository
 
-A set of curated and useful helm charts.
+Add ekristen's Helm Repository to your Helm repos:
 
-## Charts
+```bash
+helm repo add ekristen https://ekristen.goatlas.io/ekristen/
+```
 
-- rancher-pushprox
-- k3s-monitoring
-- rke-monitoring
-- rke2-monitoring
+## Install K3S Monitoring
 
-### rancher-pushprox
+```bash
+helm upgrade -i k3s-monitoring ekristen/k3s-monitoring --namespace monitoring 
+```
 
-K3S does not use pods for some of the various built in components so to be able to monitor them we need to be able to expose them to prometheus to monitoring. Rancher's own monitoring helm chart uses [pushprox](https://github.com/prometheus-community/PushProx).
+## Install RKE Monitoring
 
-This chart simply makes those components available as it's own helm chart.
+```bash
+helm upgrade -i rke-monitoring ekristen/rke-monitoring --namespace monitoring 
+```
+
+## Install RKE2 Monitoring
+
+```bash
+helm upgrade -i rke2-monitoring ekristen/rke2-monitoring --namespace monitoring 
+```

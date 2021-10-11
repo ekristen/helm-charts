@@ -9,3 +9,23 @@ dependencies:
     version: 1.0.0
     repository: https://ekristen.github.io/helm-charts
     condition: k3sServer.enabled
+  - name: rancher-pushprox
+    alias: k3sControllerManager
+    version: 1.0.0
+    repository: https://ekristen.github.io/helm-charts
+    condition: k3sControllerManager.enabled
+  - name: rancher-pushprox
+    alias: k3sScheduler
+    version: 1.0.0
+    repository: https://ekristen.github.io/helm-charts
+    condition: k3sControllerManager.enabled
+  - name: rancher-pushprox
+    alias: ks3Proxy
+    version: 1.0.0
+    repository: https://ekristen.github.io/helm-charts
+    condition: ks3Proxy.enabled
+  - name: rancher-pushprox
+    alias: k3sEtcd
+    version: 1.0.0
+    repository: https://ekristen.github.io/helm-charts
+    condition: k3sEtcd.enabled

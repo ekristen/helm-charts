@@ -3,34 +3,55 @@ entries:
   k3s-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-10-11T09:03:10.236981-06:00"
+    created: "2021-10-11T16:34:30.446294134Z"
     dependencies:
     - alias: k3sServer
       condition: k3sServer.enabled
       name: rancher-pushprox
       repository: https://ekristen.github.io/helm-charts
       version: 1.0.0
+    - alias: k3sControllerManager
+      condition: k3sControllerManager.enabled
+      name: rancher-pushprox
+      repository: https://ekristen.github.io/helm-charts
+      version: 1.0.0
+    - alias: k3sScheduler
+      condition: k3sControllerManager.enabled
+      name: rancher-pushprox
+      repository: https://ekristen.github.io/helm-charts
+      version: 1.0.0
+    - alias: ks3Proxy
+      condition: ks3Proxy.enabled
+      name: rancher-pushprox
+      repository: https://ekristen.github.io/helm-charts
+      version: 1.0.0
+    - alias: k3sEtcd
+      condition: k3sEtcd.enabled
+      name: rancher-pushprox
+      repository: https://ekristen.github.io/helm-charts
+      version: 1.0.0
     description: Add components necessary for monitoring k3s server components
-    digest: 2a0f0ed4756c34ca462dfbeb6f8dbe8d976c923c1970743c014c2537584bf0ed
+    digest: c0c7767a43968e224c20eee4a1909fe59b5bfb2d65e9ff5ebf7ba15e12fc72a9
     name: k3s-monitoring
     urls:
-    - k3s-monitoring-1.0.0.tgz
+    - https://ekristen.github.io/helm-charts/k3s-monitoring-1.0.0.tgz
     version: 1.0.0
   rancher-pushprox:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-10-11T09:03:10.23742-06:00"
-    description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx clients.
-    digest: b127e9c98fe346dccc157bff3cd02a1d02bc0bfad991f83bc05b4341347a81ab
+    created: "2021-10-11T16:34:30.446830833Z"
+    description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
+      clients.
+    digest: 94b8b53d4a9953956f8de3aaa7d70d35af5e9e5919a1e944715605271aca214a
     name: rancher-pushprox
     type: application
     urls:
-    - rancher-pushprox-1.0.0.tgz
+    - https://ekristen.github.io/helm-charts/rancher-pushprox-1.0.0.tgz
     version: 1.0.0
   rke-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-10-11T09:03:10.238232-06:00"
+    created: "2021-10-11T16:34:30.447730933Z"
     dependencies:
     - alias: rkeControllerManager
       condition: rkeControllerManager.enabled
@@ -53,15 +74,15 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.0.0
     description: Add components necessary for monitoring rke cluster deployment
-    digest: 320cf419a07d3a52efa9ce41b038cc24f8c8faf617a68b58d62ab74067b302d0
+    digest: 996ca45223a067a13e238c2d954ed0a8eaa558e41c63958eca5f1b49399ad78d
     name: rke-monitoring
     urls:
-    - rke-monitoring-1.0.0.tgz
+    - https://ekristen.github.io/helm-charts/rke-monitoring-1.0.0.tgz
     version: 1.0.0
   rke2-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-10-11T09:03:10.240109-06:00"
+    created: "2021-10-11T16:34:30.448869732Z"
     dependencies:
     - alias: rke2ControllerManager
       condition: rke2ControllerManager.enabled
@@ -84,9 +105,9 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.0.0
     description: Add components necessary for monitoring rke2 cluster deployment
-    digest: cbd82b3f8454a48199309e8b96ee1722121e4abc7bcc198a0e4a849ea77508d7
+    digest: 9571ecb852236b9faf40dee4f0275270ca0b4c84564f6ac36ec761a328bc86d0
     name: rke2-monitoring
     urls:
-    - rke2-monitoring-1.0.0.tgz
+    - https://ekristen.github.io/helm-charts/rke2-monitoring-1.0.0.tgz
     version: 1.0.0
-generated: "2021-10-11T09:03:10.236162-06:00"
+generated: "2021-10-11T16:34:30.445059134Z"

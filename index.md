@@ -1,4 +1,4 @@
-# ekristen Curated Helm Chart Repository
+# ekristen's Curated Helm Chart Repository
 
 Add ekristen's Helm Repository to your Helm repos:
 

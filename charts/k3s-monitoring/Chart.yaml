@@ -1,5 +1,11 @@
-apiVersion: v1
+apiVersion: v2
 appVersion: 1.0.0
 description: Add components necessary for monitoring k3s server components
 name: k3s-monitoring
 version: 1.0.0
+dependencies:
+  - name: rancher-pushprox
+    alias: k3sServer
+    version: 1.0.0
+    repository: https://ekristen.github.io/helm-charts
+    condition: k3sServer.enabled

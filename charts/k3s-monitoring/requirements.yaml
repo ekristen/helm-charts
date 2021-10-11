@@ -1,6 +1,6 @@
 dependencies:
   - name: rancher-pushprox
     alias: k3sServer
-    version: 0.1.2
+    version: 1.0.0
     repository: https://ekristen.github.io/helm-charts
     condition: k3sServer.enabled

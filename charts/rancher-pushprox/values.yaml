@@ -29,6 +29,13 @@ metricsPort: 2739
 # Configure ServiceMonitor that monitors metrics from the metricsPort endpoint
 serviceMonitor:
   enabled: true
+  # Prometheus scrape interval
+  interval: 60s
+  # Prometheus scrape timeout
+  scrapeTimeout: 30s
+  # Add custom labels to the ServiceMonitor resource
+  labels: {}
+    # monitoring: "k3s"
 
 clients:
   enabled: true

@@ -16,6 +16,10 @@ global:
   cattle:
     systemDefaultRegistry: ""
 
+# -- Custom labels to add into metadata
+customLabels: {}
+  # pushprox: k3s
+
 # The component that is being monitored (i.e. etcd)
 component: "component"
 

@@ -16,11 +16,39 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "pushProxy.commonLabels" -}}
-release: {{ .Release.Name }}
-component: {{ .Values.component | quote }}
-provider: kubernetes
+{{- define "pushProxy.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "pushProxy.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "pushProxy.commonLabels" -}}
+helm.sh/chart: {{ include "pushProxy.chart" . }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: {{ .Values.component | quote }}
+app.kubernetes.io/part-of: {{ template "pushProxy.name" . }}
+{{- include "pushProxy.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+provider: kubernetes
+{{- if .Values.customLabels }}
+{{ toYaml .Values.customLabels }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Selector labels
+*/}}
+{{- define "pushProxy.selectorLabels" }}
+app.kubernetes.io/name: {{ include "pushProxy.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
 
 {{- define "pushProxy.proxyUrl" -}}
 {{- $_ := (required "Template requires either .Values.proxy.port or .Values.client.proxyUrl to set proxyUrl for client" (or .Values.clients.proxyUrl .Values.proxy.port)) -}}

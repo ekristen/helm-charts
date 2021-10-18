@@ -69,6 +69,11 @@ k8s-app: {{ template "pushProxy.client.name" . }}
 {{ template "pushProxy.commonLabels" . }}
 {{- end -}}
 
+{{- define "pushProxy.client.selectorLabels" -}}
+k8s-app: {{ template "pushProxy.client.name" . }}
+{{- include "pushProxy.selectorLabels" . }}
+{{- end -}}
+
 # Proxy
 
 {{- define "pushProxy.proxy.name" -}}
@@ -80,6 +85,11 @@ k8s-app: {{ template "pushProxy.proxy.name" . }}
 {{ template "pushProxy.commonLabels" . }}
 {{- end -}}
 
+{{- define "pushProxy.proxy.selectorLabels" -}}
+k8s-app: {{ template "pushProxy.proxy.name" . }}
+{{- include "pushProxy.selectorLabels" . }}
+{{- end -}}
+
 # ServiceMonitor
 
 {{- define "pushprox.serviceMonitor.name" -}}
@@ -89,4 +99,7 @@ k8s-app: {{ template "pushProxy.proxy.name" . }}
 {{- define "pushProxy.serviceMonitor.labels" -}}
 app: {{ template "pushprox.serviceMonitor.name" . }}
 {{ template "pushProxy.commonLabels" . }}
+{{- if .Values.serviceMonitor.labels }}
+{{ toYaml .Values.serviceMonitor.labels }}
+{{- end }}
 {{- end -}}

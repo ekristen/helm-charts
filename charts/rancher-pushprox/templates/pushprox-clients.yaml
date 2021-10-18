@@ -8,7 +8,7 @@ metadata:
     pushprox-exporter: "client"
 spec:
   selector:
-    matchLabels: {{ include "pushProxy.client.labels" . | nindent 6 }}
+    matchLabels: {{ include "pushProxy.client.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels: {{ include "pushProxy.client.labels" . | nindent 8 }}

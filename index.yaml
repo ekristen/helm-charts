@@ -3,7 +3,7 @@ entries:
   k3s-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-10-11T19:55:56.641509714Z"
+    created: "2021-10-26T16:10:10.098958484Z"
     dependencies:
     - alias: k3sServer
       condition: k3sServer.enabled
@@ -31,7 +31,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.0.1
     description: Add components necessary for monitoring k3s server components
-    digest: 688490417637d3fc56a4147b070f2a00abd4fc8f4f8a48dbfd0594941395c36c
+    digest: 06c75f8db164834ebac76bae33badcf970d6b2e2063bbea882570022dd7cb77a
     name: k3s-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/k3s-monitoring-1.0.1.tgz
@@ -74,6 +74,17 @@ entries:
   rancher-pushprox:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2021-10-26T16:10:10.099550991Z"
+    description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
+      clients.
+    digest: 41235c034b9a5ea4caf2a7bc66e30b2212cddeef7e1b4a643b77424d32b862c4
+    name: rancher-pushprox
+    type: application
+    urls:
+    - https://ekristen.github.io/helm-charts/rancher-pushprox-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2021-10-11T19:55:56.642409827Z"
     description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
       clients.
@@ -97,7 +108,7 @@ entries:
   rke-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-10-11T19:55:56.64396055Z"
+    created: "2021-10-26T16:10:10.100955407Z"
     dependencies:
     - alias: rkeControllerManager
       condition: rkeControllerManager.enabled
@@ -120,7 +131,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.0.1
     description: Add components necessary for monitoring rke cluster deployment
-    digest: 821baa7a986c5dfe02e4e9057142abe310c134b95aa483cc0da1f5bf1b7d12d5
+    digest: 26a91c6f6bf3226b2487dd2d5999e6e06027dbcc79cecf8cd81b3a322488e83d
     name: rke-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke-monitoring-1.0.0.tgz
@@ -128,7 +139,7 @@ entries:
   rke2-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-10-11T19:55:56.646159383Z"
+    created: "2021-10-26T16:10:10.102656626Z"
     dependencies:
     - alias: rke2ControllerManager
       condition: rke2ControllerManager.enabled
@@ -151,9 +162,9 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.0.1
     description: Add components necessary for monitoring rke2 cluster deployment
-    digest: 0664041da6ef52a120a57f0af5aebde804de8eabb10d65982e80546c0a5b8a2e
+    digest: 08c01329e08571777c49752e3d01c47167a4099bb0f67aa72a6be2042d2ac051
     name: rke2-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.0.0.tgz
     version: 1.0.0
-generated: "2021-10-11T19:55:56.639827989Z"
+generated: "2021-10-26T16:10:10.097784171Z"

@@ -13,6 +13,8 @@ spec:
     params:
       _scheme: [https]
     {{- end }}
+    interval: {{ .Values.serviceMonitor.interval }}
+    scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
   jobLabel: component
   podTargetLabels:
   - component
@@ -21,7 +23,7 @@ spec:
     matchNames:
     - {{ template "pushprox.namespace" . }}
   selector:
-    matchLabels: {{ include "pushProxy.client.labels" . | nindent 6 }}
+    matchLabels: {{ include "pushProxy.client.selectorLabels" . | nindent 6 }}
 ---
 apiVersion: v1
 kind: Service
@@ -35,5 +37,5 @@ spec:
     port: {{ required "Need .Values.metricsPort to configure client to listen to metrics at port" .Values.metricsPort}}
     protocol: TCP
     targetPort: {{ .Values.metricsPort }}
-  selector: {{ include "pushProxy.client.labels" . | nindent 4 }}
+  selector: {{ include "pushProxy.client.selectorLabels" . | nindent 4 }}
 {{- end }}{{- end }}

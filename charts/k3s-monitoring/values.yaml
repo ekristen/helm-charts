@@ -5,6 +5,8 @@ k3sServer:
   enabled: true
   metricsPort: 10249
   component: k3s-server
+  # customLabels:
+  #   pushprox: k3s
   clients:
     port: 10013
     useLocalhost: true
@@ -18,6 +20,8 @@ k3sControllerManager:
   enabled: true
   metricsPort: 10252
   component: kube-controller-manager
+  # customLabels:
+  #   pushprox: k3s
   clients:
     port: 10011
     useLocalhost: true
@@ -33,6 +37,8 @@ k3sScheduler:
   enabled: true
   metricsPort: 10251
   component: kube-scheduler
+  # customLabels:
+  #   pushprox: k3s
   clients:
     port: 10012
     useLocalhost: true
@@ -48,6 +54,8 @@ ks3Proxy:
   enabled: true
   metricsPort: 10249
   component: kube-proxy
+  # customLabels:
+  #   pushprox: k3s
   clients:
     port: 10013
     useLocalhost: true
@@ -62,6 +70,8 @@ k3sEtcd:
   enabled: false
   metricsPort: 2381
   component: kube-etcd
+  # customLabels:
+  #   pushprox: k3s
   clients:
     port: 10014
     https:

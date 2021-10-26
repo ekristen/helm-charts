@@ -1,18 +1,18 @@
 dependencies:
 - name: rancher-pushprox
   repository: https://ekristen.github.io/helm-charts
-  version: 1.0.1
+  version: 1.1.0
 - name: rancher-pushprox
   repository: https://ekristen.github.io/helm-charts
-  version: 1.0.1
+  version: 1.1.0
 - name: rancher-pushprox
   repository: https://ekristen.github.io/helm-charts
-  version: 1.0.1
+  version: 1.1.0
 - name: rancher-pushprox
   repository: https://ekristen.github.io/helm-charts
-  version: 1.0.1
+  version: 1.1.0
 - name: rancher-pushprox
   repository: https://ekristen.github.io/helm-charts
-  version: 1.0.1
-digest: sha256:8c20cd27a42a5f1916b72ac799feeec1d93c7eac1d4730c82395d7839f404277
-generated: "2021-10-11T13:15:56.239784-06:00"
+  version: 1.1.0
+digest: sha256:14322133b9a5620cabf78527ab5706763ce81cafe6dfa100ba3113ec1c32ec2e
+generated: "2021-10-26T19:16:50.156009335Z"

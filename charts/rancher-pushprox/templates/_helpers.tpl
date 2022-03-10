@@ -37,6 +37,7 @@ app.kubernetes.io/part-of: {{ template "pushProxy.name" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 provider: kubernetes
+component: {{ .Values.component | quote }}
 {{- if .Values.customLabels }}
 {{ toYaml .Values.customLabels }}
 {{- end }}

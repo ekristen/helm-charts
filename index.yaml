@@ -1,9 +1,40 @@
 apiVersion: v1
 entries:
+  amazon-eks-pod-identity-webhook:
+  - annotations:
+      artifacthub.io/changes: |
+        - "[Fixed]: tpl function related errors"
+    apiVersion: v2
+    appVersion: v0.4.0
+    created: "2022-04-28T14:29:21.542187059Z"
+    description: A Kubernetes webhook for pods that need AWS IAM access
+    digest: be10aab807abe3be2615cff7545499423517617517e41f15d2f0d0bce861470d
+    home: https://github.com/aws/amazon-eks-pod-identity-webhook/
+    keywords:
+    - aws
+    - iam
+    - eks
+    - irsa
+    - iam-roles-for-service-accounts
+    - eks-pod-identity-webhook
+    - aws-pod-identity-webhook
+    maintainers:
+    - email: github@ekristen.dev
+      name: ekristen
+      url: https://github.com/ekristen
+    name: amazon-eks-pod-identity-webhook
+    sources:
+    - https://github.com/ekristen/helm-charts/tree/main/charts/amazon-eks-pod-identity-webhook
+    - https://github.com/jkroepke/helm-charts/tree/main/charts/amazon-eks-pod-identity-webhook
+    - https://github.com/aws/amazon-eks-pod-identity-webhook/
+    type: application
+    urls:
+    - https://ekristen.github.io/helm-charts/amazon-eks-pod-identity-webhook-1.0.3.tgz
+    version: 1.0.3
   k3s-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-03-10T19:03:44.817941954Z"
+    created: "2022-04-28T14:29:21.543435268Z"
     dependencies:
     - alias: k3sServer
       condition: k3sServer.enabled
@@ -31,7 +62,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring k3s server components
-    digest: e30b4a5491721e62591c01d8091fa03bfd07d43ce318ee5fdeb820bead8f007a
+    digest: 303ce3681ff4c1a7db0597599a6bbf508f80be07a4939fc429eb5ac837921542
     name: k3s-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/k3s-monitoring-1.2.0.tgz
@@ -144,10 +175,10 @@ entries:
   rancher-pushprox:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-03-10T19:03:44.818517751Z"
+    created: "2022-04-28T14:29:21.543983771Z"
     description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
       clients.
-    digest: 6a342685ede30c10e169a187efc6c5cb754a10d91a40875433ee0b663d75623f
+    digest: 33f79e96ace73f9575cbe0e52011b06407efa7714278c0cdd11dd40589550c82
     name: rancher-pushprox
     type: application
     urls:
@@ -189,7 +220,7 @@ entries:
   rke-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-03-10T19:03:44.819606946Z"
+    created: "2022-04-28T14:29:21.545803084Z"
     dependencies:
     - alias: rkeControllerManager
       condition: rkeControllerManager.enabled
@@ -212,7 +243,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke cluster deployment
-    digest: a30dd8495a6ad3845af6f87440586c30ed55dd4303d0808aad9c61ab594de23e
+    digest: e9cb3fec88af859c54c92034a308c301424b41bf1f1c984640bcb9522f52399b
     name: rke-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke-monitoring-1.2.0.tgz
@@ -280,7 +311,7 @@ entries:
   rke2-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-03-10T19:03:44.820583742Z"
+    created: "2022-04-28T14:29:21.547274194Z"
     dependencies:
     - alias: rke2ControllerManager
       condition: rke2ControllerManager.enabled
@@ -303,7 +334,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke2 cluster deployment
-    digest: 1663accfb38ff8fcdb34a3a11ef64ab4bb91783c08a206c68e6aa6b602b4ac56
+    digest: 318e6e3b0fea3062c5cab8ae5ee76d4a3d2d488fed0122b4b0ec4b056c230ffc
     name: rke2-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.2.0.tgz
@@ -368,4 +399,4 @@ entries:
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.0.0.tgz
     version: 1.0.0
-generated: "2022-03-10T19:03:44.815175766Z"
+generated: "2022-04-28T14:29:21.540971551Z"

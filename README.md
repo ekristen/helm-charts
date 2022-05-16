@@ -4,10 +4,15 @@ A set of curated and useful helm charts.
 
 ## Charts
 
+- amazon-eks-pod-identity-webhook
 - rancher-pushprox
 - k3s-monitoring
 - rke-monitoring
 - rke2-monitoring
+
+### amazon-eks-pod-identity-webhook
+
+[Amazon EKS Pod Identity Webhook](https://github.com/aws/amazon-eks-pod-identity-webhook) is a temporary solution until AWS gets around to publishing their own version of this helm chart.
 
 ### rancher-pushprox
 

@@ -3,7 +3,7 @@
 Add ekristen's Helm Repository to your Helm repos:
 
 ```bash
-helm repo add ekristen https://ekristen.goatlas.io/ekristen/
+helm repo add ekristen https://ekristen.github.io/helm-charts/
 ```
 
 ## Install K3S Monitoring

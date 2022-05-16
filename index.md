@@ -6,6 +6,14 @@ Add ekristen's Helm Repository to your Helm repos:
 helm repo add ekristen https://ekristen.github.io/helm-charts/
 ```
 
+## Install Amazon EKS Pod Identity Webhook
+
+```bash
+helm upgrade -i amazon-pod-identity ekristen/amazon-eks-pod-identity-webhook --namespace amazon-pod-identity
+```
+
+**Note:** The origins of this chart comes from [aws/eks-charts#286](https://github.com/aws/eks-charts/pull/286) and [jkroepke/helm-charts](https://github.com/jkroepke/helm-charts/tree/main/charts/amazon-eks-pod-identity-webhook)
+
 ## Install K3S Monitoring
 
 ```bash

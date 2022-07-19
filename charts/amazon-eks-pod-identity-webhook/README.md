@@ -9,7 +9,7 @@ A Kubernetes webhook for pods that need AWS IAM access
 ## Installation
 
 ```shell
-helm repo add jkroepke https://ekristen.github.io/helm-charts/
+helm repo add ekristen https://ekristen.github.io/helm-charts/
 helm install amazon-eks-pod-identity-webhook ekristen/amazon-eks-pod-identity-webhook
 ```
 

@@ -2,25 +2,25 @@ apiVersion: v2
 appVersion: 1.0.0
 description: Add components necessary for monitoring rke cluster deployment
 name: rke-monitoring
-version: 1.1.0
+version: 1.2.0
 dependencies:
   - name: rancher-pushprox
     alias: rkeControllerManager
-    version: 1.1.0
+    version: 1.1.1
     repository: https://ekristen.github.io/helm-charts
     condition: rkeControllerManager.enabled
   - name: rancher-pushprox
     alias: rkeScheduler
-    version: 1.1.0
+    version: 1.1.1
     repository: https://ekristen.github.io/helm-charts
     condition: rkeScheduler.enabled
   - name: rancher-pushprox
     alias: rkeProxy
-    version: 1.1.0
+    version: 1.1.1
     repository: https://ekristen.github.io/helm-charts
     condition: rkeProxy.enabled
   - name: rancher-pushprox
     alias: rkeEtcd
-    version: 1.1.0
+    version: 1.1.1
     repository: https://ekristen.github.io/helm-charts
     condition: rkeEtcd.enabled

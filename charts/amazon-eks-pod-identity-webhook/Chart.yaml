@@ -1,0 +1,26 @@
+apiVersion: v2
+name: amazon-eks-pod-identity-webhook
+description: A Kubernetes webhook for pods that need AWS IAM access
+version: 1.0.3
+type: application
+appVersion: "v0.4.0"
+home: https://github.com/aws/amazon-eks-pod-identity-webhook/
+sources:
+  - https://github.com/ekristen/helm-charts/tree/main/charts/amazon-eks-pod-identity-webhook
+  - https://github.com/jkroepke/helm-charts/tree/main/charts/amazon-eks-pod-identity-webhook
+  - https://github.com/aws/amazon-eks-pod-identity-webhook/
+maintainers:
+  - name: ekristen
+    email: github@ekristen.dev
+    url: https://github.com/ekristen
+keywords:
+  - aws
+  - iam
+  - eks
+  - irsa
+  - iam-roles-for-service-accounts
+  - eks-pod-identity-webhook
+  - aws-pod-identity-webhook
+annotations:
+  artifacthub.io/changes: |
+    - "[Fixed]: tpl function related errors"

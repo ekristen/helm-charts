@@ -5,6 +5,36 @@ entries:
       artifacthub.io/changes: |
         - "[Fixed]: tpl function related errors"
     apiVersion: v2
+    appVersion: v0.5.1
+    created: "2023-09-22T16:46:17.648452358Z"
+    description: A Kubernetes webhook for pods that need AWS IAM access
+    digest: 72e8a04707b3f7402394277993c81292dbc8928dc27962d591b2cff3316afb64
+    home: https://github.com/aws/amazon-eks-pod-identity-webhook/
+    keywords:
+    - aws
+    - iam
+    - eks
+    - irsa
+    - iam-roles-for-service-accounts
+    - eks-pod-identity-webhook
+    - aws-pod-identity-webhook
+    maintainers:
+    - email: github@ekristen.dev
+      name: ekristen
+      url: https://github.com/ekristen
+    name: amazon-eks-pod-identity-webhook
+    sources:
+    - https://github.com/ekristen/helm-charts/tree/main/charts/amazon-eks-pod-identity-webhook
+    - https://github.com/jkroepke/helm-charts/tree/main/charts/amazon-eks-pod-identity-webhook
+    - https://github.com/aws/amazon-eks-pod-identity-webhook/
+    type: application
+    urls:
+    - https://ekristen.github.io/helm-charts/amazon-eks-pod-identity-webhook-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
+        - "[Fixed]: tpl function related errors"
+    apiVersion: v2
     appVersion: v0.4.0
     created: "2022-07-19T01:22:03.756234566Z"
     description: A Kubernetes webhook for pods that need AWS IAM access
@@ -34,7 +64,7 @@ entries:
   k3s-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-07-19T01:22:03.75757377Z"
+    created: "2023-09-22T16:46:17.649618159Z"
     dependencies:
     - alias: k3sServer
       condition: k3sServer.enabled
@@ -62,7 +92,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring k3s server components
-    digest: 699172af14a67733d1eb3db6b1822793444629b000d5ea7811ce3ac4a6dbcba6
+    digest: 575059aa9d218a273cbf0d00c36a481ded8bf15b57e28ca3ecea12317c69a65c
     name: k3s-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/k3s-monitoring-1.2.0.tgz
@@ -175,10 +205,10 @@ entries:
   rancher-pushprox:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-07-19T01:22:03.758314971Z"
+    created: "2023-09-22T16:46:17.65017566Z"
     description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
       clients.
-    digest: bdd2a91abf2ff6218a75a8ccfb49234e097c00312ae71b9d68866a442b3a8512
+    digest: 76bdfe15c3ecbbe5df5e4090990fc4fe2f9f195418a8280bbc8b3c6ce2ea1e0b
     name: rancher-pushprox
     type: application
     urls:
@@ -220,7 +250,7 @@ entries:
   rke-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-07-19T01:22:03.759651175Z"
+    created: "2023-09-22T16:46:17.651231361Z"
     dependencies:
     - alias: rkeControllerManager
       condition: rkeControllerManager.enabled
@@ -243,7 +273,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke cluster deployment
-    digest: ab811f27e3b6e68afdc62796296bd225cba7feebf5159a449b9f14bbf5207847
+    digest: b661cd8a2172187a4a1a956d45fc5fd682c69125905acb0491ad73f48371f95e
     name: rke-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke-monitoring-1.2.0.tgz
@@ -311,7 +341,7 @@ entries:
   rke2-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-07-19T01:22:03.760903478Z"
+    created: "2023-09-22T16:46:17.653003363Z"
     dependencies:
     - alias: rke2ControllerManager
       condition: rke2ControllerManager.enabled
@@ -334,7 +364,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke2 cluster deployment
-    digest: bfde2940dfaa532ca263196b473fa7c305b07002d1349cd62a7a3b4e35a92bc4
+    digest: 88c68546643b28dab8b969b749af89f881334ef110a3aed23e2f8062e15e1e0b
     name: rke2-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.2.0.tgz
@@ -399,4 +429,4 @@ entries:
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-19T01:22:03.754689662Z"
+generated: "2023-09-22T16:46:17.647248056Z"

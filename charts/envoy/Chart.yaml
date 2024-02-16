@@ -1,0 +1,14 @@
+apiVersion: v1
+appVersion: 1.18.2
+deprecated: true
+description: |
+  Simply Envoy chart for Kubernetes
+home: https://www.envoyproxy.io/
+icon: https://avatars0.githubusercontent.com/u/30125649
+keywords:
+  - envoy
+  - proxy
+name: envoy
+sources:
+  - https://github.com/envoyproxy/envoy
+version: 1.10.0

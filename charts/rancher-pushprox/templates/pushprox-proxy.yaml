@@ -16,6 +16,9 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
+{{- if .Values.proxy.affinity }}
+      affinity: {{ toYaml .Values.proxy.affinity | nindent 8 }}
+{{- end }}
 {{- if .Values.proxy.nodeSelector }}
       nodeSelector: {{ toYaml .Values.proxy.nodeSelector | nindent 8 }}
 {{- end }}

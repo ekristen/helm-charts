@@ -6,9 +6,9 @@ entries:
         - "[Fixed]: tpl function related errors"
     apiVersion: v2
     appVersion: v0.5.2
-    created: "2024-02-16T20:20:09.62988247Z"
+    created: "2024-04-04T21:17:45.178864913Z"
     description: A Kubernetes webhook for pods that need AWS IAM access
-    digest: 46febf20b1364446d0cfdd1304a80702d8b5b3282515c8e9e37ce92f2f99bcba
+    digest: e9a89e0b8dba6d336bfb7f90f4f8e18c47bfbd8e441923ba5458b3858bc244f9
     home: https://github.com/aws/amazon-eks-pod-identity-webhook/
     keywords:
     - aws
@@ -93,6 +93,23 @@ entries:
     version: 1.0.3
   envoy:
   - apiVersion: v1
+    appVersion: 1.29.2
+    created: "2024-04-04T21:17:45.179506396Z"
+    deprecated: true
+    description: 'Simply Envoy chart for Kubernetes '
+    digest: d57640ccd558d3d758218559db6b29a165b34970ce364f2599b1f9078d7aa1ed
+    home: https://www.envoyproxy.io/
+    icon: https://avatars0.githubusercontent.com/u/30125649
+    keywords:
+    - envoy
+    - proxy
+    name: envoy
+    sources:
+    - https://github.com/envoyproxy/envoy
+    urls:
+    - https://ekristen.github.io/helm-charts/envoy-1.11.0.tgz
+    version: 1.11.0
+  - apiVersion: v1
     appVersion: 1.18.2
     created: "2024-02-16T20:20:09.63055951Z"
     deprecated: true
@@ -112,7 +129,7 @@ entries:
   k3s-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-02-16T20:20:09.631437853Z"
+    created: "2024-04-04T21:17:45.180371419Z"
     dependencies:
     - alias: k3sServer
       condition: k3sServer.enabled
@@ -140,7 +157,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring k3s server components
-    digest: cec194ff614cbefc71cc3912855885e7f480ea0ce765796e7f41b22080bf3c95
+    digest: a9c31cb71cbfd84ff192255bd99f623cfb5e0d9a328b036c131dd6228fd5df50
     name: k3s-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/k3s-monitoring-1.2.0.tgz
@@ -253,10 +270,10 @@ entries:
   rancher-pushprox:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2024-02-16T20:20:09.631874956Z"
+    created: "2024-04-04T21:17:45.180803219Z"
     description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
       clients.
-    digest: 8526cd2975f7b3fa51ec3ebcf48bfcd59847a2bf4423cca928a4c3365f6e877e
+    digest: 119ed115a6428bea29b71358819e84926fde53e0caa6fbc6f63d88ebf344d203
     name: rancher-pushprox
     type: application
     urls:
@@ -298,7 +315,7 @@ entries:
   rke-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-02-16T20:20:09.632643556Z"
+    created: "2024-04-04T21:17:45.181557875Z"
     dependencies:
     - alias: rkeControllerManager
       condition: rkeControllerManager.enabled
@@ -321,7 +338,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke cluster deployment
-    digest: 453202e2ef9ca0845f30ad084ed313562b7c84d116e2cce70e5faac97b37cadb
+    digest: 9ff1da917dee53d229dc8b3dac74be23b8353af9284749acc543608b21f6becb
     name: rke-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke-monitoring-1.2.0.tgz
@@ -389,7 +406,7 @@ entries:
   rke2-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-02-16T20:20:09.633437412Z"
+    created: "2024-04-04T21:17:45.182496025Z"
     dependencies:
     - alias: rke2ControllerManager
       condition: rke2ControllerManager.enabled
@@ -412,7 +429,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke2 cluster deployment
-    digest: 70dd891cb9e105d4ddefcbc0fe1df218d2b887b5e70217d6bdfba69d354a1925
+    digest: 5da18c79904fbc747452184c32f2e24c4937e015fe9f5992c75044452822fb70
     name: rke2-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.2.0.tgz
@@ -477,4 +494,4 @@ entries:
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.0.0.tgz
     version: 1.0.0
-generated: "2024-02-16T20:20:09.628920832Z"
+generated: "2024-04-04T21:17:45.177923677Z"

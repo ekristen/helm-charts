@@ -13,6 +13,9 @@ spec:
     metadata:
       labels: {{ include "pushProxy.client.labels" . | nindent 8 }}
     spec:
+{{- if .Values.clients.affinity }}
+      affinity: {{ toYaml .Values.clients.affinity | nindent 8 }}
+{{- end }}
 {{- if .Values.clients.nodeSelector }}
       nodeSelector: {{ toYaml .Values.clients.nodeSelector | nindent 8 }}
 {{- end }}

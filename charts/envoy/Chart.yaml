@@ -11,4 +11,4 @@ keywords:
 name: envoy
 sources:
   - https://github.com/envoyproxy/envoy
-version: 1.11.0
+version: 1.12.0

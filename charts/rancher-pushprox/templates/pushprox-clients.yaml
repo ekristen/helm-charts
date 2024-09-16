@@ -6,12 +6,20 @@ metadata:
   namespace: {{ template "pushprox.namespace" . }}
   labels: {{ include "pushProxy.client.labels" . | nindent 4 }}
     pushprox-exporter: "client"
+  {{- with .Values.customAnnotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   selector:
     matchLabels: {{ include "pushProxy.client.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels: {{ include "pushProxy.client.labels" . | nindent 8 }}
+      {{- with .Values.customAnnotations }}
+      annotations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
 {{- if .Values.clients.affinity }}
       affinity: {{ toYaml .Values.clients.affinity | nindent 8 }}

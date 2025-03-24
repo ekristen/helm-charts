@@ -6,9 +6,9 @@ entries:
         - "[Fixed]: tpl function related errors"
     apiVersion: v2
     appVersion: v0.5.2
-    created: "2024-04-04T21:24:28.713910542Z"
+    created: "2025-03-24T14:13:18.50716138Z"
     description: A Kubernetes webhook for pods that need AWS IAM access
-    digest: 53caf82a6b8bc775d7b3fa6d7d0a0b42bf557679f1e565b9ecf8b9b392685ff8
+    digest: 9cf4280b3c3562e6d3dfa3666ad36f3f5c3fe57fc254171191dd88469593831e
     home: https://github.com/aws/amazon-eks-pod-identity-webhook/
     keywords:
     - aws
@@ -94,10 +94,10 @@ entries:
   envoy:
   - apiVersion: v1
     appVersion: 1.29.2
-    created: "2024-04-04T21:24:28.71528564Z"
+    created: "2025-03-24T14:13:18.50782389Z"
     deprecated: true
     description: 'Simply Envoy chart for Kubernetes '
-    digest: d87de3b6b12d1ecb5e6d9011c4f04322fd3162562630bc7d24ce46373f47227a
+    digest: 4efdaaaf0e180f8bee174dcfab88456b2b17be22ca09e82e3a2da29f25f0c507
     home: https://www.envoyproxy.io/
     icon: https://avatars0.githubusercontent.com/u/30125649
     keywords:
@@ -146,7 +146,7 @@ entries:
   k3s-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-04-04T21:24:28.716545851Z"
+    created: "2025-03-24T14:13:18.508719896Z"
     dependencies:
     - alias: k3sServer
       condition: k3sServer.enabled
@@ -174,7 +174,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring k3s server components
-    digest: 152ef43e423086a8ad37f6abd9f02d3f359b68ebf95bd1f76eab4b22c3ad749a
+    digest: b58cb0c7583e5c6930c6cb2fd73a0a6db9ad4b13fe9e5323d59799cb5af8e385
     name: k3s-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/k3s-monitoring-1.2.0.tgz
@@ -287,6 +287,17 @@ entries:
   rancher-pushprox:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-03-24T14:13:18.509134001Z"
+    description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
+      clients.
+    digest: 10b6875a07c2e21079001f3eaa2ad77d2f14640c63426475748aa5a855c943a8
+    name: rancher-pushprox
+    type: application
+    urls:
+    - https://ekristen.github.io/helm-charts/rancher-pushprox-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-04-04T21:24:28.716958231Z"
     description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
       clients.
@@ -332,7 +343,7 @@ entries:
   rke-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-04-04T21:24:28.717744037Z"
+    created: "2025-03-24T14:13:18.509909662Z"
     dependencies:
     - alias: rkeControllerManager
       condition: rkeControllerManager.enabled
@@ -355,7 +366,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke cluster deployment
-    digest: 168ba44f3c8bc1048b39c009baa2896c3cf65997bd046f1ad7094511fadf4ec0
+    digest: f925233388edbc31463f932d7e1464e102abaa811698fc36c218900ac06b6880
     name: rke-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke-monitoring-1.2.0.tgz
@@ -423,7 +434,7 @@ entries:
   rke2-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-04-04T21:24:28.718513844Z"
+    created: "2025-03-24T14:13:18.510687167Z"
     dependencies:
     - alias: rke2ControllerManager
       condition: rke2ControllerManager.enabled
@@ -446,7 +457,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke2 cluster deployment
-    digest: e2b121f7ae6cb8e263dc9fbafa791cafbaabc519725e04245a2b86e5d30e9475
+    digest: e650711bd858b369e6d823deb9a8427727caf5c0fb9320b2142b30e621b3e76d
     name: rke2-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.2.0.tgz
@@ -511,4 +522,4 @@ entries:
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-04T21:24:28.713039887Z"
+generated: "2025-03-24T14:13:18.506207315Z"

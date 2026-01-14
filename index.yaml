@@ -6,9 +6,9 @@ entries:
         - "[Fixed]: tpl function related errors"
     apiVersion: v2
     appVersion: v0.5.2
-    created: "2025-03-24T14:26:03.441859468Z"
+    created: "2026-01-14T19:30:43.564074228Z"
     description: A Kubernetes webhook for pods that need AWS IAM access
-    digest: ddb227edab6c0cad806c30272f5f921a68ab8eb522edd8f11d524c2eb65f6afc
+    digest: 66d4400b74dfc9ef9969f4201b04236d10cb69eb50e5870826198c6fd3ce7106
     home: https://github.com/aws/amazon-eks-pod-identity-webhook/
     keywords:
     - aws
@@ -94,10 +94,10 @@ entries:
   envoy:
   - apiVersion: v1
     appVersion: 1.29.2
-    created: "2025-03-24T14:26:03.442982824Z"
+    created: "2026-01-14T19:30:43.564717046Z"
     deprecated: true
     description: 'Simply Envoy chart for Kubernetes '
-    digest: c36f7a409e1c6be4f0465b716c1d2bc0a2c6cb21f3123b08dca6ec1bcd799537
+    digest: 592fd185c426997aec6090903e38c9fedfd7817b02aa32544d8cbdc94cdfec32
     home: https://www.envoyproxy.io/
     icon: https://avatars0.githubusercontent.com/u/30125649
     keywords:
@@ -146,7 +146,7 @@ entries:
   k3s-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-03-24T14:26:03.44392878Z"
+    created: "2026-01-14T19:30:43.565636028Z"
     dependencies:
     - alias: k3sServer
       condition: k3sServer.enabled
@@ -174,7 +174,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring k3s server components
-    digest: e2f92f16636c041b131a828bc21b331d22de230e0d6e5a68bd839660d5cbc52f
+    digest: 5d0852fe94d6b269dae2caea738788ba4afa49188672bacd1585f16ffbc25ceb
     name: k3s-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/k3s-monitoring-1.2.0.tgz
@@ -287,10 +287,10 @@ entries:
   rancher-pushprox:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2025-03-24T14:26:03.444367308Z"
+    created: "2026-01-14T19:30:43.566117214Z"
     description: Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx
       clients.
-    digest: b6da79e52a49b995430013f8429ae638e1e5e07dc75b95d53d36bb25440a1d8e
+    digest: c1739681836018901736d0f30343b9cbd6c9b6b2099b03f6812bbfb07fc94bf4
     name: rancher-pushprox
     type: application
     urls:
@@ -343,7 +343,7 @@ entries:
   rke-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-03-24T14:26:03.445164446Z"
+    created: "2026-01-14T19:30:43.566872893Z"
     dependencies:
     - alias: rkeControllerManager
       condition: rkeControllerManager.enabled
@@ -366,7 +366,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 1.1.1
     description: Add components necessary for monitoring rke cluster deployment
-    digest: 86045989d3bff7418cb191fc685b4dc4bf555c56a310fbc8a3889f34bec500b3
+    digest: bbcd16d6d7fa3e4210578f2bfc65559957522b8ba79cf6834485431f668bc4e2
     name: rke-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke-monitoring-1.2.0.tgz
@@ -434,7 +434,7 @@ entries:
   rke2-monitoring:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-03-24T14:26:03.44594377Z"
+    created: "2026-01-14T19:30:43.567607041Z"
     dependencies:
     - alias: rke2ControllerManager
       condition: rke2ControllerManager.enabled
@@ -457,7 +457,7 @@ entries:
       repository: https://ekristen.github.io/helm-charts
       version: 2.0.0
     description: Add components necessary for monitoring rke2 cluster deployment
-    digest: 72ed8cac0b29af8dba1dfde0a74e80ca3e19ffe1a1ce20999e4a1fc7995973db
+    digest: 6be77b0bc63827f59526b902bb14d691310be28d86af646f0f480f72d271867d
     name: rke2-monitoring
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-2.0.0.tgz
@@ -552,4 +552,21 @@ entries:
     urls:
     - https://ekristen.github.io/helm-charts/rke2-monitoring-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-24T14:26:03.440409502Z"
+  universal:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-01-14T19:30:43.568922011Z"
+    description: Universal Helm Chart to do 86.25378% of deployments.
+    digest: 06e35c783c08b41eb00a461cfcf7934a5b8b8f290d7686b33426cff87b311c24
+    home: https://github.com/ekristen/universal
+    kubeVersion: '>= 1.28.0'
+    maintainers:
+    - email: erik@ekristen.dev
+      name: Erik Kristensen
+    name: universal
+    sources:
+    - https://github.com/ekristen/universal
+    urls:
+    - https://ekristen.github.io/helm-charts/universal-1.0.0.tgz
+    version: 1.0.0
+generated: "2026-01-14T19:30:43.563139236Z"

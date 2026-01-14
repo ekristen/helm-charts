@@ -1,0 +1,123 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: autoscaler tests
+templates:
+  - autoscaler.yaml
+tests:
+  - it: should not render by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render when enabled
+    set:
+      autoscaling:
+        enabled: true
+    asserts:
+      - isKind:
+          of: HorizontalPodAutoscaler
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME
+
+  - it: should not render for cronjob workload
+    set:
+      workloadType: cronjob
+      autoscaling:
+        enabled: true
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should set min and max replicas
+    set:
+      autoscaling:
+        enabled: true
+        minReplicas: 3
+        maxReplicas: 15
+    asserts:
+      - equal:
+          path: spec.minReplicas
+          value: 3
+      - equal:
+          path: spec.maxReplicas
+          value: 15
+
+  - it: should use replicaCount as default minReplicas
+    set:
+      replicaCount: 2
+      autoscaling:
+        enabled: true
+        maxReplicas: 10
+    asserts:
+      - equal:
+          path: spec.minReplicas
+          value: 2
+
+  - it: should set CPU metric
+    set:
+      autoscaling:
+        enabled: true
+        cpu: 75
+    asserts:
+      - contains:
+          path: spec.metrics
+          content:
+            type: Resource
+            resource:
+              name: cpu
+              target:
+                type: Utilization
+                averageUtilization: 75
+
+  - it: should set memory metric
+    set:
+      autoscaling:
+        enabled: true
+        memory: 80
+    asserts:
+      - contains:
+          path: spec.metrics
+          content:
+            type: Resource
+            resource:
+              name: memory
+              target:
+                type: Utilization
+                averageUtilization: 80
+
+  - it: should set both CPU and memory metrics
+    set:
+      autoscaling:
+        enabled: true
+        cpu: 70
+        memory: 85
+    asserts:
+      - lengthEqual:
+          path: spec.metrics
+          count: 2
+
+  - it: should reference correct deployment
+    set:
+      autoscaling:
+        enabled: true
+    asserts:
+      - equal:
+          path: spec.scaleTargetRef.apiVersion
+          value: apps/v1
+      - equal:
+          path: spec.scaleTargetRef.kind
+          value: Deployment
+      - equal:
+          path: spec.scaleTargetRef.name
+          value: RELEASE-NAME
+
+  - it: should set correct namespace
+    release:
+      namespace: production
+    set:
+      autoscaling:
+        enabled: true
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: production

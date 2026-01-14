@@ -1,0 +1,238 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: deployment tests
+templates:
+  - deployment.yaml
+tests:
+  - it: should render deployment by default
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME
+
+  - it: should not render when workloadType is cronjob
+    set:
+      workloadType: cronjob
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should set correct namespace
+    release:
+      namespace: test-ns
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: test-ns
+
+  - it: should render env vars from map
+    set:
+      env:
+        DATABASE_URL: postgres://localhost/db
+        LOG_LEVEL: debug
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "DATABASE_URL"
+            value: "postgres://localhost/db"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "LOG_LEVEL"
+            value: "debug"
+
+  - it: should render envFromSecret correctly
+    set:
+      envFromSecret:
+        DB_PASSWORD:
+          secretName: my-secret
+          key: password
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "DB_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: my-secret
+                key: password
+
+  - it: should use default image
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: ghcr.io/stefanprodan/podinfo:6.1.4
+
+  - it: should use custom image
+    set:
+      image:
+        repository: nginx
+        tag: "1.25"
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: nginx:1.25
+
+  - it: should set container port
+    set:
+      container:
+        port: 3000
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].ports[0].containerPort
+          value: 3000
+
+  - it: should set resources when specified
+    set:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: "1"
+          memory: 512Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.cpu
+          value: 100m
+      - equal:
+          path: spec.template.spec.containers[0].resources.limits.memory
+          value: 512Mi
+
+  - it: should set security context from values
+    set:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext.runAsUser
+          value: 1001
+
+  - it: should set replica count
+    set:
+      replicaCount: 3
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 3
+
+  - it: should set minReadySeconds
+    set:
+      minReadySeconds: 60
+    asserts:
+      - equal:
+          path: spec.minReadySeconds
+          value: 60
+
+  - it: should render liveness probe when set
+    set:
+      probes:
+        liveness:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.httpGet.path
+          value: /healthz
+
+  - it: should render readiness probe when set
+    set:
+      probes:
+        readiness:
+          httpGet:
+            path: /ready
+            port: 8080
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.httpGet.path
+          value: /ready
+
+  - it: should mount secret volumes
+    set:
+      volumes:
+        secrets:
+          app-certs:
+            secretName: my-certs
+            mountPath: /etc/certs
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: app-certs
+            mountPath: /etc/certs
+            readOnly: true
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: app-certs
+            secret:
+              secretName: my-certs
+
+  - it: should set default pod anti-affinity
+    asserts:
+      - isNotNull:
+          path: spec.template.spec.affinity.podAntiAffinity
+
+  - it: should use custom affinity when specified
+    set:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+    asserts:
+      - isNotNull:
+          path: spec.template.spec.affinity.nodeAffinity
+
+  - it: should set tolerations
+    set:
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: special
+          effect: NoSchedule
+    asserts:
+      - contains:
+          path: spec.template.spec.tolerations
+          content:
+            key: dedicated
+            operator: Equal
+            value: special
+            effect: NoSchedule
+
+  - it: should add prometheus annotations when metrics enabled
+    set:
+      metrics:
+        enabled: true
+        port: 9090
+        path: /metrics
+    asserts:
+      - equal:
+          path: spec.template.metadata.annotations["prometheus.io/scrape"]
+          value: "true"
+      - equal:
+          path: spec.template.metadata.annotations["prometheus.io/port"]
+          value: "9090"
+
+  - it: should add metrics port when metrics enabled
+    set:
+      metrics:
+        enabled: true
+        port: 9090
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: metrics
+            containerPort: 9090
+            protocol: TCP

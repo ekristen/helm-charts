@@ -1,0 +1,126 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: service tests
+templates:
+  - service.yaml
+tests:
+  - it: should render service by default
+    asserts:
+      - isKind:
+          of: Service
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME
+
+  - it: should not render when disabled
+    set:
+      service:
+        enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should set correct namespace
+    release:
+      namespace: test-ns
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: test-ns
+
+  - it: should render default http port when no ports specified
+    asserts:
+      - contains:
+          path: spec.ports
+          content:
+            name: http
+            port: 80
+            targetPort: 8080
+            protocol: TCP
+
+  - it: should render custom ports from map
+    set:
+      service:
+        ports:
+          http:
+            port: 8080
+            targetPort: 8080
+          grpc:
+            port: 9090
+            targetPort: 9090
+    asserts:
+      - contains:
+          path: spec.ports
+          content:
+            name: http
+            port: 8080
+            targetPort: 8080
+            protocol: TCP
+      - contains:
+          path: spec.ports
+          content:
+            name: grpc
+            port: 9090
+            targetPort: 9090
+            protocol: TCP
+
+  - it: should set service type
+    set:
+      service:
+        type: NodePort
+    asserts:
+      - equal:
+          path: spec.type
+          value: NodePort
+
+  - it: should default to ClusterIP
+    asserts:
+      - equal:
+          path: spec.type
+          value: ClusterIP
+
+  - it: should set annotations
+    set:
+      service:
+        annotations:
+          service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    asserts:
+      - equal:
+          path: metadata.annotations["service.beta.kubernetes.io/aws-load-balancer-internal"]
+          value: "true"
+
+  - it: should add metrics port when metrics enabled
+    set:
+      metrics:
+        enabled: true
+        port: 9090
+    asserts:
+      - contains:
+          path: spec.ports
+          content:
+            name: metrics
+            port: 9090
+            targetPort: 9090
+            protocol: TCP
+
+  - it: should set correct selector
+    asserts:
+      - equal:
+          path: spec.selector["universal/app-name"]
+          value: RELEASE-NAME
+
+  - it: should set custom protocol
+    set:
+      service:
+        ports:
+          udp-dns:
+            port: 53
+            targetPort: 53
+            protocol: UDP
+    asserts:
+      - contains:
+          path: spec.ports
+          content:
+            name: udp-dns
+            port: 53
+            targetPort: 53
+            protocol: UDP

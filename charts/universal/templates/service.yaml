@@ -1,0 +1,37 @@
+{{- if .Values.service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    universal/app-name: {{ .Release.Name }}
+{{- with .Values.service.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  type: {{ .Values.service.type | default "ClusterIP" }}
+  ports:
+{{- if .Values.service.ports }}
+{{- range $name, $port := .Values.service.ports }}
+    - name: {{ $name }}
+      port: {{ $port.port }}
+      targetPort: {{ $port.targetPort | default $port.port }}
+      protocol: {{ $port.protocol | default "TCP" }}
+{{- end }}
+{{- else }}
+    - name: http
+      port: 80
+      targetPort: {{ .Values.container.port }}
+      protocol: TCP
+{{- end }}
+{{- if .Values.metrics.enabled }}
+    - name: metrics
+      port: {{ .Values.metrics.port }}
+      targetPort: {{ .Values.metrics.port }}
+      protocol: TCP
+{{- end }}
+  selector:
+    universal/app-name: {{ .Release.Name }}
+{{- end -}}

@@ -1,0 +1,117 @@
+{{- if eq .Values.workloadType "cronjob" -}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+{{- with .Values.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+  labels:
+    universal/app-name: {{ .Release.Name }}
+{{- with .Values.labels }}
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy | default "Forbid" }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit | default 1 }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit | default 1 }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            universal/app-name: {{ .Release.Name }}
+{{- with .Values.podLabels }}
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.podAnnotations }}
+          annotations:
+{{ toYaml . | indent 12 }}
+{{- end }}
+        spec:
+          restartPolicy: {{ .Values.cronjob.restartPolicy | default "OnFailure" }}
+{{- with .Values.nodeSelector }}
+          nodeSelector:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.tolerations }}
+          tolerations:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.affinity }}
+          affinity:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.initContainers }}
+          initContainers:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- if .Values.image.pullSecret }}
+          imagePullSecrets:
+            - name: {{ .Values.image.pullSecret }}
+{{- end }}
+{{- with .Values.securityContext }}
+          securityContext:
+{{ toYaml . | indent 12 }}
+{{- end }}
+          containers:
+            - name: {{ .Values.container.name | default .Release.Name }}
+              image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- with .Values.container.command }}
+              command:
+{{ toYaml . | indent 16 }}
+{{- end }}
+{{- with .Values.container.args }}
+              args:
+{{ toYaml . | indent 16 }}
+{{- end }}
+{{- if or .Values.env .Values.envFromSecret }}
+              env:
+{{- range $key, $value := .Values.env }}
+                - name: {{ $key | quote }}
+                  value: {{ $value | quote }}
+{{- end }}
+{{- range $envName, $secret := .Values.envFromSecret }}
+                - name: {{ $envName | quote }}
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $secret.secretName }}
+                      key: {{ $secret.key }}
+{{- end }}
+{{- end }}
+{{- with .Values.resources }}
+              resources:
+{{ toYaml . | indent 16 }}
+{{- end }}
+{{- with .Values.containerSecurityContext }}
+              securityContext:
+{{ toYaml . | indent 16 }}
+{{- end }}
+{{- if .Values.volumes.secrets }}
+              volumeMounts:
+{{- range $name, $secret := .Values.volumes.secrets }}
+                - name: {{ $name }}
+                  mountPath: {{ $secret.mountPath }}
+                  readOnly: {{ $secret.readOnly | default true }}
+{{- end }}
+{{- end }}
+{{- if .Values.volumes.secrets }}
+          volumes:
+{{- range $name, $secret := .Values.volumes.secrets }}
+            - name: {{ $name }}
+              secret:
+                secretName: {{ $secret.secretName }}
+{{- if $secret.items }}
+                items:
+{{- range $key, $path := $secret.items }}
+                  - key: {{ $key }}
+                    path: {{ $path }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}

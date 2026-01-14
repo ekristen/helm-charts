@@ -1,0 +1,155 @@
+{{- if eq .Values.workloadType "deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+{{- with .Values.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+  labels:
+    universal/app-name: {{ .Release.Name }}
+{{- with .Values.labels }}
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  minReadySeconds: {{ .Values.minReadySeconds }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      universal/app-name: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        universal/app-name: {{ .Release.Name }}
+{{- with .Values.podLabels }}
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- if or .Values.podAnnotations .Values.metrics.enabled }}
+      annotations:
+{{- if .Values.metrics.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: {{ .Values.metrics.port | quote }}
+        prometheus.io/path: {{ .Values.metrics.path | quote }}
+{{- end }}
+{{- with .Values.podAnnotations }}
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- end }}
+    spec:
+{{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+{{- end }}
+      affinity:
+{{- if .Values.affinity }}
+{{ toYaml .Values.affinity | indent 8 }}
+{{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: universal/app-name
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}
+                topologyKey: topology.kubernetes.io/zone
+{{- end }}
+{{- with .Values.initContainers }}
+      initContainers:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}
+{{- end }}
+{{- with .Values.securityContext }}
+      securityContext:
+{{ toYaml . | indent 8 }}
+{{- end }}
+      containers:
+        - name: {{ .Values.container.name | default .Release.Name }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- with .Values.container.command }}
+          command:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.container.args }}
+          args:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- if or .Values.env .Values.envFromSecret }}
+          env:
+{{- range $key, $value := .Values.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+{{- end }}
+{{- range $envName, $secret := .Values.envFromSecret }}
+            - name: {{ $envName | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secret.secretName }}
+                  key: {{ $secret.key }}
+{{- end }}
+{{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.port }}
+              protocol: TCP
+{{- if .Values.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.port }}
+              protocol: TCP
+{{- end }}
+{{- with .Values.probes.liveness }}
+          livenessProbe:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.probes.readiness }}
+          readinessProbe:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.probes.startup }}
+          startupProbe:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.resources }}
+          resources:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- with .Values.containerSecurityContext }}
+          securityContext:
+{{ toYaml . | indent 12 }}
+{{- end }}
+{{- if .Values.volumes.secrets }}
+          volumeMounts:
+{{- range $name, $secret := .Values.volumes.secrets }}
+            - name: {{ $name }}
+              mountPath: {{ $secret.mountPath }}
+              readOnly: {{ $secret.readOnly | default true }}
+{{- end }}
+{{- end }}
+{{- if .Values.volumes.secrets }}
+      volumes:
+{{- range $name, $secret := .Values.volumes.secrets }}
+        - name: {{ $name }}
+          secret:
+            secretName: {{ $secret.secretName }}
+{{- if $secret.items }}
+            items:
+{{- range $key, $path := $secret.items }}
+              - key: {{ $key }}
+                path: {{ $path }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}

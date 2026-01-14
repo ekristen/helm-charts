@@ -1,0 +1,148 @@
+# Workload type: deployment or cronjob
+workloadType: deployment
+
+# Replica Count (only for deployment)
+replicaCount: 1
+
+# Min Ready Seconds (only for deployment)
+minReadySeconds: 90
+
+# CronJob-specific settings (only used when workloadType: cronjob)
+cronjob:
+  schedule: ""
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  restartPolicy: OnFailure
+
+# Image configuration
+image:
+  repository: ghcr.io/stefanprodan/podinfo
+  tag: 6.1.4
+  pullPolicy: IfNotPresent
+  pullSecret: ""
+
+# Container configuration
+container:
+  name: ""
+  port: 8080
+  command: []  # array - order matters
+  args: []     # array - order matters
+
+# 12-factor: all config via environment variables
+# Maps for collision-safe merging across values files
+env: {}
+#  DATABASE_URL: "postgres://localhost/db"
+#  LOG_LEVEL: "info"
+
+# Environment variables from secrets (map for merging)
+envFromSecret: {}
+#  DATABASE_PASSWORD:
+#    secretName: app-secrets
+#    key: db-password
+
+# Resource requests/limits
+resources: {}
+#  requests:
+#    cpu: 100m
+#    memory: 128Mi
+#  limits:
+#    cpu: "1"
+#    memory: 512Mi
+
+# Probes
+probes:
+  startup: {}
+  readiness: {}
+  liveness: {}
+
+# Service configuration
+service:
+  enabled: true
+  type: ClusterIP
+  annotations: {}
+  ports: {}  # map for merging
+  #  http:
+  #    port: 80
+  #    targetPort: 8080
+  #  grpc:
+  #    port: 9090
+  #    targetPort: 9090
+
+# Ingress - can be enabled alongside gateway
+ingress:
+  enabled: false
+  host: ""
+  path: /
+  pathType: Prefix
+  annotations: {}
+  tls:
+    enabled: false
+    secret: ""
+
+# Gateway API - can be enabled alongside ingress
+gateway:
+  enabled: false
+  # Future: Gateway API HTTPRoute config
+  # parentRefs: {}
+  # hostnames: []
+  # rules: {}
+
+# Service Account
+serviceAccount:
+  enabled: false
+  annotations: {}
+
+# ServiceMonitor for Prometheus
+serviceMonitor:
+  enabled: false
+  interval: 15s
+  labels: {}
+
+# Metrics endpoint (for prometheus scrape annotations)
+metrics:
+  enabled: false
+  port: 9090
+  path: /metrics
+
+# Horizontal Pod Autoscaler
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  cpu: 80
+  memory: ""
+
+# Pod security context
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+# Container security context
+containerSecurityContext: {}
+
+# Pod metadata
+podAnnotations: {}
+podLabels: {}
+
+# Deployment/CronJob metadata
+annotations: {}
+labels: {}
+
+# Scheduling
+nodeSelector: {}
+tolerations: []  # array - K8s spec
+affinity: {}
+
+# Init containers (array - order matters)
+initContainers: []
+
+# Volumes - secrets only (12-factor: config via env vars)
+volumes:
+  secrets: {}
+  #  app-certs:
+  #    secretName: my-certs
+  #    mountPath: /etc/certs
+  #    readOnly: true
+  #    items: {}  # optional: specific keys

@@ -1,0 +1,14 @@
+apiVersion: v2
+name: universal
+version: 1.0.0
+kubeVersion: ">= 1.28.0"
+description: Universal Helm Chart to do 86.25378% of deployments.
+home: https://github.com/ekristen/universal
+sources:
+  - https://github.com/ekristen/universal
+maintainers:
+  - name: Erik Kristensen
+    email: erik@ekristen.dev
+deprecated: false
+annotations: {}
+appVersion: 1.0.0

@@ -1,0 +1,24 @@
+# Simple container deployment
+# Usage: helm install myapp ./charts/universal -f _examples/simple-container.yaml
+
+image:
+  repository: nginx
+  tag: "1.25"
+
+container:
+  port: 80
+
+env:
+  LOG_LEVEL: info
+
+service:
+  enabled: true
+  ports:
+    http:
+      port: 80
+      targetPort: 80
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi

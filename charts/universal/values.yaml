@@ -1,194 +1,148 @@
-# Replica Count: How many instances of the application to run
+# Workload type: deployment or cronjob
+workloadType: deployment
+
+# Replica Count (only for deployment)
 replicaCount: 1
 
-# Min Ready Seconds: How long to wait before marking a pod as ready
+# Min Ready Seconds (only for deployment)
 minReadySeconds: 90
 
-# Image: The container image to use for the application
+# CronJob-specific settings (only used when workloadType: cronjob)
+cronjob:
+  schedule: ""
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  restartPolicy: OnFailure
+
+# Image configuration
 image:
   repository: ghcr.io/stefanprodan/podinfo
   tag: 6.1.4
   pullPolicy: IfNotPresent
-  pullSecret: null
+  pullSecret: ""
 
-# Strategy: The deployment strategy to use for updating the application
-strategy:
-  type: RollingUpdate
-  rollingUpdate:
-    maxSurge: 1
-    maxUnavailable: 1
-
-# Container: The container configuration for the application
+# Container configuration
 container:
-  name: pod-info
-  port: 4315
-  args:
-    - api-server
+  name: ""
+  port: 8080
+  command: []  # array - order matters
+  args: []     # array - order matters
 
-# Metrics: The metrics configuration for the application
-metrics:
-  enabled: false
-  path: /metrics
-  port: 4316
+# 12-factor: all config via environment variables
+# Maps for collision-safe merging across values files
+env: {}
+#  DATABASE_URL: "postgres://localhost/db"
+#  LOG_LEVEL: "info"
 
-## Deployment annotations
-annotations: {}
+# Environment variables from secrets (map for merging)
+envFromSecret: {}
+#  DATABASE_PASSWORD:
+#    secretName: app-secrets
+#    key: db-password
 
-## Deployment labels
-labels: {}
+# Resource requests/limits
+resources: {}
+#  requests:
+#    cpu: 100m
+#    memory: 128Mi
+#  limits:
+#    cpu: "1"
+#    memory: 512Mi
 
-affinity: {}
+# Probes
+probes:
+  startup: {}
+  readiness: {}
+  liveness: {}
 
-tolerations: []
-# - key: CriticalAddonsOnly
-#  operator: Exists
-
-# Container: Security Context
-# WARNING: ignored if `containers` is used
-securityContext:
-  runAsUser: 999
-  runAsGroup: 999
-  fsGroup: 999
-
-# Pod: Security
-podSecurityContext: {}
-
-## Pod Annotations
-podAnnotations: {}
-
-## Pod Labels
-podLabels: {}
-
-# Service: The service configuration for the application
+# Service configuration
 service:
   enabled: true
-  annotations: {}
   type: ClusterIP
-  ports: []
-    - name: metrics
-      port: 9797
-      targetPort: 9797
-    - name: http
-      port: 9898
-      targetPort: 9898
-    - name: external
-      port: 9898
-      targetPort: 9898
-    - name: grpc
-      port: 9999
-      service: podinfo
+  annotations: {}
+  ports: {}  # map for merging
+  #  http:
+  #    port: 80
+  #    targetPort: 8080
+  #  grpc:
+  #    port: 9090
+  #    targetPort: 9090
 
-## Extra environment variables that will be pass into pods
-## WARNING: Ignored if `containers` is used
-env: {}
-#  key: value
-#  key: value
-
-## Extra environment variables (from existing secrets) that will be pass into pods
-## WARNING: Ignored if `containers` is used
-envFromSecret: {}
-# ENV_VAR:
-#   secretName: app-secret
-#   secretKeyRef: first-key
-
-## These define the limits and requests of the container.
-## Suggestion: avoid limits unless you really know what you are doing, rely on requests instead
-## WARNING: Ignored if `containers` is used
-resources: {}
-#  limits:
-#    cpu: "1.0"
-#    memory: 1024Mi
-#  requests:
-#    cpu: 200m
-#    memory: 1024Mi
-
-autoscaling:
+# Ingress - can be enabled alongside gateway
+ingress:
   enabled: false
-  minReplicas: 2 # Note: uses replicaCount if this is nil or missing
-  maxReplicas: 5
-  cpu: 80
-  memory: 80
-  request: 80
-  targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 80
+  host: ""
+  path: /
+  pathType: Prefix
+  annotations: {}
+  tls:
+    enabled: false
+    secret: ""
 
+# Gateway API - can be enabled alongside ingress
+gateway:
+  enabled: false
+  # Future: Gateway API HTTPRoute config
+  # parentRefs: {}
+  # hostnames: []
+  # rules: {}
+
+# Service Account
 serviceAccount:
   enabled: false
+  annotations: {}
 
+# ServiceMonitor for Prometheus
 serviceMonitor:
   enabled: false
   interval: 15s
   labels: {}
 
-ingress:
+# Metrics endpoint (for prometheus scrape annotations)
+metrics:
   enabled: false
-  tls:
-    enabled: true
-    secret: null
-  host: dockit.example.org
-  path: /
-  pathType: Prefix
-  #  path: / (default)
-  #   annotations:
-  #     certmanager.k8s.io/acme-challenge-type: "http01"
-  #     certmanager.k8s.io/cluster-issuer: "letsencrypt"
-  #     kubernetes.io/tls-acme: "true"
-  additionalPaths: {}
-  #    - path: "/api"
-  #      serviceName: xyz
-  #      servicePort: 80
+  port: 9090
+  path: /metrics
 
-## Secret mounts & volume mounts
-# Defines mounts with secrets. Secrets must be manually created in the namespace.
+# Horizontal Pod Autoscaler
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  cpu: 80
+  memory: ""
+
+# Pod security context
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+# Container security context
+containerSecurityContext: {}
+
+# Pod metadata
+podAnnotations: {}
+podLabels: {}
+
+# Deployment/CronJob metadata
+annotations: {}
+labels: {}
+
+# Scheduling
+nodeSelector: {}
+tolerations: []  # array - K8s spec
+affinity: {}
+
+# Init containers (array - order matters)
+initContainers: []
+
+# Volumes - secrets only (12-factor: config via env vars)
 volumes:
-  enabled: false
-  volumes: []
-  #  - name: cache-volume
-  #    emptyDir: {}
-  volumeMounts: []
-  #  - path: /cache
-  #    name: cache-volume
-  secretVolumeMounts: []
-  #   - name: secret-files
-  #     path: /etc/secrets
-  #     items:
-  #     - key: blah
-  #     - path: </etc/secrets>/blah
-  #   - name: secret-files
-  #     path: /etc/secrets
-  secretVolumes: []
-  #   - name: secret-files
-  #     secretName: some-secret-files
-  #   - name: secret-files
-  #     secretName: some-secret-files
-  configMapVolumeMounts: []
-  #      - name: config-map-files
-  #        path: /etc/config
-  configMapVolumes:
-  #      - name: config-map-files
-  #        configMapName: config-map-name
-
-configMaps: {}
-
-# WARNING: ADVANCED: you can control every setting of all containers but all the simplicity
-# that this chart provides goes out the window.
-containers: []
-
-probes:
-  startupProbe: {}
-  # Readiness Probe: The probe to use for checking if the application is ready
-  readinessProbe: {}
-    # httpGet:
-    #   path: /healthz
-    #   port: 4315
-    # initialDelaySeconds: 60
-    # timeoutSeconds: 30
-    # failureThreshold: 24
-  # Liveness Probe: The probe to use for checking if the application is alive
-  livenessProbe: {}
-    # httpGet:
-    #   path: /healthz
-    #   port: 4315
-    # initialDelaySeconds: 60
-    # timeoutSeconds: 30
-    # failureThreshold: 24
+  secrets: {}
+  #  app-certs:
+  #    secretName: my-certs
+  #    mountPath: /etc/certs
+  #    readOnly: true
+  #    items: {}  # optional: specific keys

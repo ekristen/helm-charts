@@ -6,42 +6,30 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     universal/app-name: {{ .Release.Name }}
-    universal/app-version: {{ .Chart.AppVersion }}
-  {{- if .Values.ingress.annotations }}
+{{- with .Values.ingress.annotations }}
   annotations:
-  {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-  {{- end }}
-  {{- end }}
+{{ toYaml . | indent 4 }}
+{{- end }}
 spec:
   rules:
-  - host: {{ .Values.ingress.host }}
-    http:
-      paths:
-        - path: {{ default "/" .Values.ingress.path }}
-          backend:
-            service:
-              name: {{ $.Release.Name }}
-              port:
-                number: 80
-          pathType: {{ or .Values.ingress.pathType "ImplementationSpecific" }}
-        {{- range $path := .Values.ingress.additionalPaths }}
-        - path: {{ $path.path }}
-          backend:
-            service:
-              name: {{ $path.serviceName }}
-              port:
-                number: {{ $path.servicePort }}
-          pathType: {{ or $path.pathType "ImplementationSpecific" }}
-        {{- end }}
-  {{- if .Values.ingress.tls.enabled }}
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.path | default "/" }}
+            pathType: {{ .Values.ingress.pathType | default "Prefix" }}
+            backend:
+              service:
+                name: {{ .Release.Name }}
+                port:
+                  number: 80
+{{- if .Values.ingress.tls.enabled }}
   tls:
-  - hosts:
-    - {{ .Values.ingress.host }}
-    {{- if .Values.ingress.tls.secret }}
-    secretName: "{{ .Values.ingress.tls.secret }}"
-    {{- else }}
-    secretName: {{ $.Release.Name }}
-    {{- end }}
-  {{- end }}
+    - hosts:
+        - {{ .Values.ingress.host }}
+{{- if .Values.ingress.tls.secret }}
+      secretName: {{ .Values.ingress.tls.secret }}
+{{- else }}
+      secretName: {{ .Release.Name }}-tls
+{{- end }}
+{{- end }}
 {{- end -}}

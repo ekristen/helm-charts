@@ -1,0 +1,33 @@
+# Simple cronjob
+# Usage: helm install myapp ./charts/universal -f _examples/simple-cronjob.yaml
+
+workloadType: cronjob
+
+image:
+  repository: alpine
+  tag: "3.19"
+
+container:
+  command:
+    - /bin/sh
+    - -c
+  args:
+    - echo "Hello from cronjob at $(date)"
+
+cronjob:
+  schedule: "0 * * * *"  # Every hour
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+
+env:
+  TZ: UTC
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+# Disable service for cronjobs
+service:
+  enabled: false

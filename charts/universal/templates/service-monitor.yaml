@@ -1,0 +1,23 @@
+{{- if and .Values.serviceMonitor.enabled (.Capabilities.APIVersions.Has "monitoring.coreos.com/v1") -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "universal.fullname" . }}
+  namespace: {{ include "universal.namespace" . }}
+  labels:
+    {{- include "universal.labels" . | nindent 4 }}
+    {{- with .Values.serviceMonitor.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  endpoints:
+    - path: /metrics
+      port: http
+      interval: {{ .Values.serviceMonitor.interval }}
+  namespaceSelector:
+    matchNames:
+      - {{ include "universal.namespace" . }}
+  selector:
+    matchLabels:
+      {{- include "universal.selectorLabels" . | nindent 6 }}
+{{- end }}

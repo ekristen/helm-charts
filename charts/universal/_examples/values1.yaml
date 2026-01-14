@@ -1,0 +1,3 @@
+# Disable Readiness and Liveliness Probes
+readinessProbe: nil
+livenessProbe: nil

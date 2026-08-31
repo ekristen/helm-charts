@@ -18,7 +18,7 @@ cronjob:
 # Image configuration
 image:
   repository: ghcr.io/stefanprodan/podinfo
-  tag: 6.1.4
+  tag: 6.15.0
   pullPolicy: IfNotPresent
   pullSecret: ""
 
